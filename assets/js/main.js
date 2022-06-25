@@ -1,44 +1,55 @@
 const slides = document.querySelectorAll('.slide');
-const pauseButton = document.querySelectorAll('#pause');
-const prevButton = document.querySelectorAll('#prev');
-const nextButton = document.querySelectorAll('#next');
+const pauseBtn = document.querySelector('#pause');
+const prevBtn = document.querySelector('#prev');
+const nextBtn = document.querySelector('#next');
 // const indicators = document.querySelectorAll('.indicators');
 const slidesLength = slides.length;
-const interval = 3000;
 
+let interval = 1000;
 let currentSlide = 0;
 let isPlaying = true;
 let timerID = null;
 
-// timerID = setInterval(nextSlide, interval);
-
-function nextSlide() {
+function goToNth(n) {
     slides[currentSlide].classList.toggle('active');
-    currentSlide = (currentSlide + 1) % slidesLength;
+    currentSlide = (n + slidesLength) % slidesLength;
     slides[currentSlide].classList.toggle('active');
 };
 
-timerID = setInterval(nextSlide, interval);
+function goToNext() {
+    goToNth(currentSlide + 1);
+};
+function goToPrev() {
+    goToNth(currentSlide - 1);
 
-function pauseSlideShow() {
+};
+
+
+function pause() {
     isPlaying = false;
-    pauseButton.innerHTML = 'Play';
+    pauseBtn.innerHTML = 'Play';
     clearInterval(timerID);
 }
 
-function playSlideShow() {
+function play() {
     isPlaying = true;
-    pauseButton.innerHTML = 'Pause';
-    timerID = setInterval(nextSlide, interval);
+    pauseBtn.innerHTML = 'Pause';
+    timerID = setInterval(goToNth, interval);
 }
 
-function pauseHandler() {
-    if(isPlaying) {
-        pauseSlideShow();
-    } else {
-        playSlideShow();
-    }
-   
+const pausePlay = () => isPlaying ? pause() : play();
+
+function prev() {
+    goToPrev();
+    pause();
 };
 
-pauseButton.addEventListener('click', pauseHandler);
+function next() {
+    goToNext();
+    pause();
+};
+
+pauseBtn.addEventListener('click', pausePlay);
+prevBtn.addEventListener('click', prev);
+nextBtn.addEventListener('click', next);
+timerID = setInterval(goToNext, interval);

@@ -36,6 +36,11 @@ body {
   margin: 0;
   box-sizing: border-box;
 }
+.container {
+  max-width: 992px;
+  padding: 0 20px;
+  margin: auto;
+}
 
 .slide {
   font-size: 40px;
@@ -69,6 +74,7 @@ body {
 .controls {
   display: flex;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
 .control {
@@ -76,6 +82,7 @@ body {
   background-color: gray;
   display: block;
   cursor: pointer;
+  user-select: none;
 }
 
 .indicators {
@@ -88,6 +95,8 @@ body {
   height: 30px;
   border-radius: 15px;
   background-color: blue;
+  cursor: pointer;
+  user-select: none;
   &.active {
     background-color: green;
   }
