@@ -42,7 +42,7 @@ function pause() {
 function play() {
     isPlaying = true;
     pauseBtn.innerHTML = 'Pause';
-    timerID = setInterval(goToNth, interval);
+    timerID = setInterval(goToNext, interval);
 };
 
 const pausePlay = () => isPlaying ? pause() : play();
